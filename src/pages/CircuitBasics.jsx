@@ -27,7 +27,7 @@ export default function CircuitBasics() {
     return (
       <div className="page circuit-page">
         <button className="back-inline-btn" onClick={() => setSelectedLesson(null)}>
-          ← きほんいちらんにもどる
+          ← レッスン一覧に戻る
         </button>
 
         <div className="lesson-hero" style={{ background: lesson.color }}>
@@ -41,7 +41,7 @@ export default function CircuitBasics() {
         {/* 回路図 */}
         {DiagramComp && (
           <div className="lesson-diagram-wrap">
-            <h3 className="lesson-diagram-title">📊 かいろず・ダイアグラム</h3>
+            <h3 className="lesson-diagram-title">📊 ダイアグラム・回路図</h3>
             <div className="lesson-diagram">
               <DiagramComp />
             </div>
@@ -84,7 +84,7 @@ export default function CircuitBasics() {
               className="lesson-nav-btn prev"
               onClick={() => setSelectedLesson(selectedLesson - 1)}
             >
-              ← {circuitLessons[selectedLesson - 1].emoji} まえのレッスン
+              ← {circuitLessons[selectedLesson - 1].emoji} 前のレッスン
             </button>
           ) : <div />}
           {selectedLesson < circuitLessons.length - 1 ? (
@@ -92,14 +92,14 @@ export default function CircuitBasics() {
               className="lesson-nav-btn next"
               onClick={() => setSelectedLesson(selectedLesson + 1)}
             >
-              つぎのレッスン {circuitLessons[selectedLesson + 1].emoji} →
+              次のレッスン {circuitLessons[selectedLesson + 1].emoji} →
             </button>
           ) : (
             <button
               className="lesson-nav-btn next complete"
               onClick={() => setSelectedLesson(null)}
             >
-              🎉 ぜんぶおわった！もどる
+              🎉 全部終わった！一覧に戻る
             </button>
           )}
         </div>
@@ -110,14 +110,15 @@ export default function CircuitBasics() {
   return (
     <div className="page circuit-page">
       <div className="page-header">
-        <h1 className="page-title">⚡ かいろのきほん</h1>
-        <p className="page-subtitle">でんきとかいろのしくみをかくにんしよう！</p>
+        <h1 className="page-title">⚡ 回路の基本</h1>
+        <p className="page-subtitle">電気と回路のしくみを学ぼう！</p>
       </div>
 
       <div className="lesson-intro">
+        <div className="lesson-intro-icon">🔬</div>
         <div className="lesson-intro-text">
-          でんきはどうやって流れるの？センサーはどうやってつなぐの？
-          プログラミングの前にかいろのきほんをおぼえよう！
+          電気はどうやって流れるの？センサーはどうつなぐの？
+          プログラミングの前に<strong>回路の基本</strong>を覚えよう！
         </div>
       </div>
 
@@ -149,9 +150,9 @@ export default function CircuitBasics() {
       <div className="circuit-tip-box">
         <div className="tip-icon">⚠️</div>
         <div>
-          <strong>あんぜんにつかおう！</strong>
-          <p>でんきのじっけんをするときは、かならず先生といっしょにやりましょう。
-          プラスとマイナスをじかにつなぐと危険です。</p>
+          <strong>安全に使おう！</strong>
+          <p>電気の実験をするときは、必ず先生と一緒にやりましょう。
+          プラスとマイナスを直接つなぐと危険です。</p>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { sensors, categories } from "../data/sensors";
 
 const difficultyLabel = ["", "⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐"];
-const difficultyText = ["", "かんたん", "ふつう", "むずかしい", "上級"];
+const difficultyText  = ["", "かんたん", "ふつう", "難しい", "上級"];
 
 export default function SensorList() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -22,15 +22,15 @@ export default function SensorList() {
   return (
     <div className="page sensor-list-page">
       <div className="page-header">
-        <h1 className="page-title">📦 センサーずかん</h1>
-        <p className="page-subtitle">センサーをえらんで、つかいかたをかくにんしよう！</p>
+        <h1 className="page-title">📦 センサー図鑑</h1>
+        <p className="page-subtitle">センサーを選んで使い方を確認しよう！</p>
       </div>
 
       <div className="search-bar">
         <span className="search-icon">🔍</span>
         <input
           type="text"
-          placeholder="センサーのなまえでけんさく..."
+          placeholder="センサー名・英語名で検索..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="search-input"
@@ -54,12 +54,17 @@ export default function SensorList() {
       </div>
 
       <div className="sensor-count">
-        <span className="count-badge">{filtered.length}けん</span> みつかりました
+        <span className="count-badge">{filtered.length}件</span> 見つかりました
       </div>
 
       <div className="sensor-grid">
         {filtered.map((sensor) => (
-          <Link key={sensor.id} to={`/sensors/${sensor.id}`} className="sensor-card" style={{ "--card-bg": sensor.color }}>
+          <Link
+            key={sensor.id}
+            to={`/sensors/${sensor.id}`}
+            className="sensor-card"
+            style={{ "--card-bg": sensor.color }}
+          >
             <div className="sensor-card-emoji">{sensor.emoji}</div>
             <div className="sensor-card-body">
               <div className="sensor-card-name">{sensor.name}</div>
@@ -79,7 +84,7 @@ export default function SensorList() {
       {filtered.length === 0 && (
         <div className="empty-state">
           <div className="empty-emoji">🔍</div>
-          <div className="empty-text">「{searchText}」はみつかりませんでした</div>
+          <div className="empty-text">「{searchText}」は見つかりませんでした</div>
         </div>
       )}
     </div>

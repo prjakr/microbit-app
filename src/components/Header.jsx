@@ -2,29 +2,28 @@ import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { path: "/", label: "ホーム", emoji: "🏠" },
-  { path: "/sensors", label: "センサー", emoji: "📦" },
-  { path: "/circuit", label: "回路のきほん", emoji: "⚡" },
+  { path: "/sensors", label: "センサー図鑑", emoji: "📦" },
+  { path: "/circuit", label: "回路の基本", emoji: "⚡" },
   { path: "/quiz", label: "クイズ", emoji: "🧠" },
 ];
 
-// アプリ切り替えバー（Scratch-Techniquesポータルから全アプリへ）
 const appLinks = [
   {
-    label: "← ポータルへもどる",
+    label: "← 広場に戻る",
     emoji: "🐱",
     href: "https://prjakr.github.io/Scratch-Techniques/",
     active: false,
   },
   {
-    label: "スクラッチ勉強",
+    label: "Scratch演習",
     emoji: "📚",
     href: "https://prjakr.github.io/Scratch-Techniques/study.html",
     active: false,
   },
   {
-    label: "マイクロビット",
+    label: "マイクロビット演習",
     emoji: "🔲",
-    href: null, // 現在のアプリ
+    href: null,
     active: true,
   },
 ];
@@ -43,12 +42,7 @@ export default function Header() {
                 {app.emoji} {app.label}
               </span>
             ) : (
-              <a
-                key={app.label}
-                href={app.href}
-                className="app-switcher-item"
-                rel="noopener noreferrer"
-              >
+              <a key={app.label} href={app.href} className="app-switcher-item" rel="noopener noreferrer">
                 {app.emoji} {app.label}
               </a>
             )
@@ -56,11 +50,11 @@ export default function Header() {
         </div>
       </div>
 
-      {/* メインナビゲーション */}
+      {/* メインナビ */}
       <div className="header-inner">
         <Link to="/" className="header-logo">
           <span className="header-logo-icon">🔲</span>
-          <span className="header-logo-text">Microbitせんさーずかん</span>
+          <span className="header-logo-text">Microbitセンサー図鑑</span>
         </Link>
         <nav className="header-nav">
           {navItems.map((item) => (

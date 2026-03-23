@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { quizzes, quizCategories } from "../data/quizzes";
 
-const QUIZ_STATES = {
-  SELECT: "select",
-  PLAYING: "playing",
-  RESULT: "result",
-};
+const QUIZ_STATES = { SELECT: "select", PLAYING: "playing", RESULT: "result" };
 
 export default function Quiz() {
   const [state, setState] = useState(QUIZ_STATES.SELECT);
@@ -18,10 +14,7 @@ export default function Quiz() {
   const [questions, setQuestions] = useState([]);
 
   const startQuiz = () => {
-    const pool =
-      selectedCategory === "all"
-        ? quizzes
-        : quizzes.filter((q) => q.category === selectedCategory);
+    const pool = selectedCategory === "all" ? quizzes : quizzes.filter((q) => q.category === selectedCategory);
     const shuffled = [...pool].sort(() => Math.random() - 0.5).slice(0, 10);
     setQuestions(shuffled);
     setCurrentIndex(0);
@@ -51,16 +44,17 @@ export default function Quiz() {
     }
   };
 
+  /* ── カテゴリ選択 ── */
   if (state === QUIZ_STATES.SELECT) {
     return (
       <div className="page quiz-page">
         <div className="page-header">
-          <h1 className="page-title">🧠 クイズにちょうせん！</h1>
-          <p className="page-subtitle">まなんだことをクイズでためしてみよう！</p>
+          <h1 className="page-title">🧠 クイズに挑戦！</h1>
+          <p className="page-subtitle">学んだことをクイズで確認しよう！</p>
         </div>
 
         <div className="quiz-category-select">
-          <h2 className="quiz-select-label">カテゴリをえらぼう</h2>
+          <h2 className="quiz-select-label">カテゴリを選ぼう</h2>
           <div className="quiz-categories">
             {quizCategories.map((cat) => (
               <button
@@ -71,10 +65,7 @@ export default function Quiz() {
                 <span className="quiz-cat-emoji">{cat.emoji}</span>
                 <span>{cat.name}</span>
                 <span className="quiz-cat-count">
-                  {cat.id === "all"
-                    ? quizzes.length
-                    : quizzes.filter((q) => q.category === cat.id).length}
-                  もん
+                  {cat.id === "all" ? quizzes.length : quizzes.filter((q) => q.category === cat.id).length}問
                 </span>
               </button>
             ))}
@@ -83,33 +74,32 @@ export default function Quiz() {
 
         <div className="quiz-start-box">
           <div className="quiz-info">
-            <span>🎯 10もん出題</span>
-            <span>⏱️ じかん制限なし</span>
-            <span>💡 かいせつあり</span>
+            <span>🎯 10問出題</span>
+            <span>⏱️ 時間制限なし</span>
+            <span>💡 解説あり</span>
           </div>
           <button className="btn btn-start" onClick={startQuiz}>
-            🚀 クイズをはじめる！
+            🚀 クイズを始める！
           </button>
         </div>
       </div>
     );
   }
 
+  /* ── 結果 ── */
   if (state === QUIZ_STATES.RESULT) {
     const percentage = Math.round((score / questions.length) * 100);
     const resultEmoji = percentage >= 80 ? "🎉" : percentage >= 60 ? "😊" : "💪";
     const resultMsg =
-      percentage >= 80
-        ? "すばらしい！よくできました！"
-        : percentage >= 60
-        ? "いいね！もう少しでかんぺき！"
-        : "もう1かいちょうせんしてみよう！";
+      percentage >= 80 ? "すばらしい！よくできました！"
+      : percentage >= 60 ? "いいね！もう少しで満点！"
+      : "もう1回挑戦してみよう！";
 
     return (
       <div className="page quiz-page">
         <div className="result-hero">
           <div className="result-emoji">{resultEmoji}</div>
-          <h2 className="result-title">けっか</h2>
+          <h2 className="result-title">結果</h2>
           <div className="result-score">
             <span className="result-num">{score}</span>
             <span className="result-denom"> / {questions.length}</span>
@@ -119,7 +109,7 @@ export default function Quiz() {
         </div>
 
         <div className="result-review">
-          <h3 className="review-title">📋 もんだいのふくしゅう</h3>
+          <h3 className="review-title">📋 問題の復習</h3>
           {answers.map((ans, i) => (
             <div key={i} className={`review-item ${ans.correct ? "correct" : "wrong"}`}>
               <div className="review-item-header">
@@ -127,7 +117,7 @@ export default function Quiz() {
                 <span className="review-q">{ans.question.question}</span>
               </div>
               <div className="review-answer">
-                <strong>こたえ：</strong>
+                <strong>答え：</strong>
                 {ans.question.choices[ans.question.answer]}
               </div>
             </div>
@@ -135,17 +125,16 @@ export default function Quiz() {
         </div>
 
         <div className="result-actions">
-          <button className="btn btn-primary" onClick={startQuiz}>
-            🔄 もういちどチャレンジ！
-          </button>
+          <button className="btn btn-primary" onClick={startQuiz}>🔄 もう一度チャレンジ！</button>
           <button className="btn btn-outline" onClick={() => setState(QUIZ_STATES.SELECT)}>
-            カテゴリをえらびなおす
+            カテゴリを選び直す
           </button>
         </div>
       </div>
     );
   }
 
+  /* ── 問題画面 ── */
   const q = questions[currentIndex];
   const isCorrect = selected === q.answer;
 
@@ -159,8 +148,8 @@ export default function Quiz() {
           />
         </div>
         <div className="quiz-progress-label">
-          <span>{currentIndex + 1} / {questions.length}もん</span>
-          <span>🌟 {score}せいかい</span>
+          <span>{currentIndex + 1} / {questions.length}問</span>
+          <span>🌟 {score}正解</span>
         </div>
       </div>
 
@@ -177,12 +166,7 @@ export default function Quiz() {
               else cls += " dimmed";
             }
             return (
-              <button
-                key={i}
-                className={cls}
-                onClick={() => handleAnswer(i)}
-                disabled={selected !== null}
-              >
+              <button key={i} className={cls} onClick={() => handleAnswer(i)} disabled={selected !== null}>
                 <span className="choice-letter">{["ア", "イ", "ウ", "エ"][i]}</span>
                 <span className="choice-text">{choice}</span>
               </button>
@@ -193,7 +177,7 @@ export default function Quiz() {
         {showExplanation && (
           <div className={`explanation ${isCorrect ? "correct" : "wrong"}`}>
             <div className="explanation-header">
-              {isCorrect ? "⭕ せいかい！" : "✖️ ちがいます…"}
+              {isCorrect ? "⭕ 正解！" : "✖️ 違います…"}
             </div>
             <p className="explanation-text">{q.explanation}</p>
           </div>
@@ -201,7 +185,7 @@ export default function Quiz() {
 
         {selected !== null && (
           <button className="btn btn-next" onClick={handleNext}>
-            {currentIndex + 1 >= questions.length ? "🎯 けっかをみる" : "つぎのもんだい →"}
+            {currentIndex + 1 >= questions.length ? "🎯 結果を見る" : "次の問題 →"}
           </button>
         )}
       </div>

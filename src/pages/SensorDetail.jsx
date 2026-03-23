@@ -3,7 +3,7 @@ import { sensors } from "../data/sensors";
 import CodeBlock from "../components/CodeBlock";
 import MakeCodeButton from "../components/MakeCodeButton";
 
-const difficultyLabel = ["", "⭐ かんたん", "⭐⭐ ふつう", "⭐⭐⭐ むずかしい", "⭐⭐⭐⭐ 上級"];
+const difficultyLabel = ["", "⭐ かんたん", "⭐⭐ ふつう", "⭐⭐⭐ 難しい", "⭐⭐⭐⭐ 上級"];
 
 export default function SensorDetail() {
   const { id } = useParams();
@@ -14,8 +14,8 @@ export default function SensorDetail() {
       <div className="page">
         <div className="empty-state">
           <div className="empty-emoji">😕</div>
-          <div className="empty-text">センサーがみつかりません</div>
-          <Link to="/sensors" className="btn btn-primary">センサーずかんにもどる</Link>
+          <div className="empty-text">センサーが見つかりません</div>
+          <Link to="/sensors" className="btn btn-primary">センサー図鑑に戻る</Link>
         </div>
       </div>
     );
@@ -28,7 +28,7 @@ export default function SensorDetail() {
   return (
     <div className="page sensor-detail-page">
       <div className="breadcrumb">
-        <Link to="/sensors">📦 センサーずかん</Link>
+        <Link to="/sensors">📦 センサー図鑑</Link>
         <span className="breadcrumb-sep">›</span>
         <span>{sensor.name}</span>
       </div>
@@ -48,7 +48,7 @@ export default function SensorDetail() {
       <div className="sensor-detail-content">
         {/* 説明 */}
         <section className="detail-section">
-          <h2 className="section-title">📖 このセンサーってなに？</h2>
+          <h2 className="section-title">📖 このセンサーって何？</h2>
           <p className="detail-description">{sensor.description}</p>
         </section>
 
@@ -60,9 +60,9 @@ export default function SensorDetail() {
           </div>
         </section>
 
-        {/* つなぎかた */}
+        {/* 配線 */}
         <section className="detail-section">
-          <h2 className="section-title">🔌 つなぎかた（ピンのせつぞく）</h2>
+          <h2 className="section-title">🔌 つなぎ方（ピン接続）</h2>
           <div className="wiring-card">
             <div className="wiring-diagram">
               <div className="wiring-side microbit-side">
@@ -80,7 +80,7 @@ export default function SensorDetail() {
               </div>
               <div className="wiring-side sensor-side">
                 <div className="wiring-device-label">🔧 センサー</div>
-                {Object.entries(sensor.pins).map(([key, val]) => (
+                {Object.entries(sensor.pins).map(([key]) => (
                   <div key={key} className="wiring-pin sensor-pin-item">
                     <span className="pin-name">{key.toUpperCase()}</span>
                   </div>
@@ -89,6 +89,19 @@ export default function SensorDetail() {
             </div>
             <div className="wiring-text">
               <pre className="wiring-pre">{sensor.wiring}</pre>
+            </div>
+          </div>
+
+          {/* 配線のポイント */}
+          <div className="wiring-tips">
+            <div className="wiring-tip red">
+              <span>🔴</span><span><strong>VCC → 3V</strong>（電源プラス）</span>
+            </div>
+            <div className="wiring-tip black">
+              <span>⚫</span><span><strong>GND → GND</strong>（電源マイナス・必ずつなぐ）</span>
+            </div>
+            <div className="wiring-tip yellow">
+              <span>🟡</span><span><strong>S → P0/P1/P2</strong>（信号ピン）</span>
             </div>
           </div>
         </section>
@@ -104,19 +117,19 @@ export default function SensorDetail() {
         {sensor.tags && (
           <div className="tag-list">
             {sensor.tags.map((tag) => (
-              <span key={tag} className="tag">{tag}</span>
+              <span key={tag} className="tag">#{tag}</span>
             ))}
           </div>
         )}
       </div>
 
-      {/* 前後のナビゲーション */}
+      {/* 前後ナビ */}
       <div className="sensor-nav">
         {prevSensor ? (
           <Link to={`/sensors/${prevSensor.id}`} className="sensor-nav-btn prev">
             <span className="sensor-nav-arrow">←</span>
             <span className="sensor-nav-info">
-              <span className="sensor-nav-label">まえのセンサー</span>
+              <span className="sensor-nav-label">前のセンサー</span>
               <span className="sensor-nav-name">{prevSensor.emoji} {prevSensor.name}</span>
             </span>
           </Link>
@@ -124,7 +137,7 @@ export default function SensorDetail() {
         {nextSensor ? (
           <Link to={`/sensors/${nextSensor.id}`} className="sensor-nav-btn next">
             <span className="sensor-nav-info">
-              <span className="sensor-nav-label">つぎのセンサー</span>
+              <span className="sensor-nav-label">次のセンサー</span>
               <span className="sensor-nav-name">{nextSensor.emoji} {nextSensor.name}</span>
             </span>
             <span className="sensor-nav-arrow">→</span>
@@ -133,7 +146,7 @@ export default function SensorDetail() {
       </div>
 
       <div className="back-btn-wrap">
-        <Link to="/sensors" className="btn btn-outline">← センサーずかんにもどる</Link>
+        <Link to="/sensors" className="btn btn-outline">← センサー図鑑に戻る</Link>
       </div>
     </div>
   );

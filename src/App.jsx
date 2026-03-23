@@ -21,7 +21,10 @@ export default function App() {
           </Routes>
         </main>
         <footer className="footer">
-          <p>🔲 Microbit センサーずかん — KEYESTUDIO 37センサースターターキット</p>
+          <p>🔲 Microbitセンサー図鑑 — KEYESTUDIO 37センサースターターキット</p>
+          <p className="footer-sub">
+            <a href="https://prjakr.github.io/Scratch-Techniques/" className="footer-link">🐱 ブロックプログラミング広場に戻る</a>
+          </p>
         </footer>
       </div>
     </BrowserRouter>
