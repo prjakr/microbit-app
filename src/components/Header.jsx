@@ -7,18 +7,18 @@ const navItems = [
   { path: "/quiz", label: "クイズ", emoji: "🧠" },
 ];
 
-// アプリ切り替えバー
+// アプリ切り替えバー（Scratch-Techniquesポータルから全アプリへ）
 const appLinks = [
   {
-    label: "スクラッチテクニック",
-    emoji: "🎮",
+    label: "← ポータルへもどる",
+    emoji: "🐱",
     href: "https://prjakr.github.io/Scratch-Techniques/",
     active: false,
   },
   {
     label: "スクラッチ勉強",
     emoji: "📚",
-    href: "https://prjakr.github.io/scratch-study/",
+    href: "https://prjakr.github.io/Scratch-Techniques/study.html",
     active: false,
   },
   {
