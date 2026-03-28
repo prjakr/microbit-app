@@ -1,13 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { sensors, categories } from "../data/sensors";
 
 const difficultyLabel = ["", "⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐"];
 const difficultyText  = ["", "かんたん", "ふつう", "難しい", "上級"];
 
 export default function SensorList() {
+  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(searchParams.get("q") ?? "");
+
+  // URLの?qが変わったら検索欄に反映
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) setSearchText(q);
+  }, [searchParams]);
 
   const filtered = sensors.filter((s) => {
     const matchCategory = selectedCategory === "all" || s.category === selectedCategory;

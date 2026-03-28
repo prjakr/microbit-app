@@ -11,36 +11,18 @@ const menuItems = [
     bg: "#E8F5E9",
     badge: `${sensors.length}種類`,
   },
-  {
-    path: "/circuit",
-    emoji: "⚡",
-    title: "回路の基本",
-    description: "電気と回路のしくみをイラストで解説！",
-    color: "#FF9800",
-    bg: "#FFF3E0",
-    badge: "6レッスン",
-  },
-  {
-    path: "/quiz",
-    emoji: "🧠",
-    title: "クイズに挑戦！",
-    description: "学んだことをクイズで確認しよう！",
-    color: "#9C27B0",
-    bg: "#F3E5F5",
-    badge: "20問",
-  },
 ];
 
-// センサーカテゴリのサンプル表示用
+// ハイライトチップ：name = 表示名、q = SensorList で検索するクエリ
 const sensorHighlights = [
-  { emoji: "💡", name: "LED", desc: "光る" },
-  { emoji: "🌡️", name: "温度", desc: "熱を測る" },
-  { emoji: "🔊", name: "音", desc: "音を出す" },
-  { emoji: "🌊", name: "超音波", desc: "距離を測る" },
-  { emoji: "🎛️", name: "ボタン", desc: "押す・離す" },
-  { emoji: "💧", name: "水分", desc: "濡れを検知" },
-  { emoji: "🔥", name: "炎", desc: "炎を検知" },
-  { emoji: "🌈", name: "カラー", desc: "色を識別" },
+  { emoji: "💡", name: "LED",   desc: "光る",     q: "LED" },
+  { emoji: "🌡️", name: "温度", desc: "熱を測る",  q: "Temperature" },
+  { emoji: "🔊", name: "音",    desc: "音を出す",  q: "Sound" },
+  { emoji: "🌊", name: "超音波",desc: "距離を測る",q: "Ultrasonic" },
+  { emoji: "🎛️", name: "ボタン",desc: "押す・離す",q: "Button" },
+  { emoji: "💧", name: "水分",  desc: "濡れを検知",q: "Water" },
+  { emoji: "🔥", name: "炎",    desc: "炎を検知",  q: "Flame" },
+  { emoji: "🌈", name: "カラー",desc: "色を識別",  q: "Color" },
 ];
 
 export default function Home() {
@@ -56,7 +38,6 @@ export default function Home() {
           </p>
           <div className="home-hero-btns">
             <Link to="/sensors" className="btn btn-primary">📦 センサーを見る</Link>
-            <Link to="/circuit" className="btn btn-outline">⚡ 回路の基本</Link>
           </div>
         </div>
         <div className="home-microbit-visual">
@@ -81,16 +62,20 @@ export default function Home() {
         </div>
       </div>
 
-      {/* センサーハイライト */}
+      {/* センサーハイライト（クリックで一覧へ） */}
       <div className="sensor-highlights">
         <h2 className="highlights-title">🔭 こんなセンサーが使えるよ！</h2>
         <div className="highlights-scroll">
           {sensorHighlights.map((s) => (
-            <div key={s.name} className="highlight-chip">
+            <Link
+              key={s.name}
+              to={`/sensors?q=${encodeURIComponent(s.q)}`}
+              className="highlight-chip"
+            >
               <span className="highlight-emoji">{s.emoji}</span>
               <span className="highlight-name">{s.name}</span>
               <span className="highlight-desc">{s.desc}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -99,14 +84,6 @@ export default function Home() {
         <div className="stat-card">
           <div className="stat-number">{sensors.length}</div>
           <div className="stat-label">センサー種類</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">6</div>
-          <div className="stat-label">回路レッスン</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-number">20</div>
-          <div className="stat-label">クイズ問題数</div>
         </div>
       </div>
 
@@ -134,25 +111,19 @@ export default function Home() {
           <div className="how-to-step">
             <span className="how-to-num">1</span>
             <div>
-              <strong>📦 センサー図鑑</strong>で使いたいセンサーを選ぶ
+              上の <strong>チップ</strong> か <strong>📦 センサー図鑑</strong> から使いたいセンサーを選ぶ
             </div>
           </div>
           <div className="how-to-step">
             <span className="how-to-num">2</span>
             <div>
-              <strong>配線図</strong>を見てMicrobitとセンサーをつなぐ
+              <strong>配線図</strong> を見てMicrobitとセンサーをつなぐ
             </div>
           </div>
           <div className="how-to-step">
             <span className="how-to-num">3</span>
             <div>
-              <strong>🚀 MakeCodeで開く</strong>ボタンでコードをコピー＆貼り付け
-            </div>
-          </div>
-          <div className="how-to-step">
-            <span className="how-to-num">4</span>
-            <div>
-              わからないことは<strong>⚡ 回路の基本</strong>を読んでみよう！
+              <strong>🚀 MakeCodeで開く</strong> ボタンでコードをコピー＆貼り付け
             </div>
           </div>
         </div>
