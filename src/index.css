@@ -1068,11 +1068,8 @@ ul, ol { list-style: none; }
 
 .highlights-scroll {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
 }
 
 .highlight-chip {
